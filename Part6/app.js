@@ -1,6 +1,11 @@
-var five = require('johnny-five');
-var twit = require('twit');
+//NodeJS solution for part 6
 
+var five = require('johnny-five'); //Package for interfacing with arduino
+var twit = require('twit'); //Package for interfacing with Twitter
+
+//Creating our connection to the twitter API
+// Fields are from the toy twitter app I created for this project
+// Currently connnected to the twitter account "@spencedog94"
 var client = new twit({
   consumer_key: 'PQKOJpCBhmmJwdNsTDYKAnzoz',
   consumer_secret: 'mmFKsbF0ShvkjHrnuQUkUMmDf2oKzGD0lW0EYlzfzjQON1NNeY',
@@ -8,11 +13,15 @@ var client = new twit({
   access_token_secret: 'OFN6fTCVLAjfqs3sKDaSCHTUx4c0mnrp3bPLtMrmJLQYk'
 });
 
+//Connecting to the board
 var board = new five.Board();
 board.on("ready", function(){
+  //Alerting the user when the board is ready
   console.log("board ready");
   var pressed = false;
+  //Button should be connected to IO pin 13
   var button = new five.Button(13);
+  //LEDs are connected to pins 6, 5, and 3
   var led = new five.Led.RGB({
     pins: {
       red: 6,
@@ -38,6 +47,7 @@ board.on("ready", function(){
 
   var stream = client.stream('user');
   console.log("Starting stream thing");
+  //If you recieve a direct message
   stream.on('direct_message', function(eventMsg){
     console.log("Message Received");
     led.on();
