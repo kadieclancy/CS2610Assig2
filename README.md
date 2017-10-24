@@ -3,5 +3,7 @@
 Team Members:
 ------------------------------------------------------
 Spencer Gray
+
 Kadie Clancy
+
 Ahmed Magooda
